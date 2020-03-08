@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{{ route('payment-methods.update') }}">Manage Payment Methods</a>
                 </div>
             </div>
         </div>
