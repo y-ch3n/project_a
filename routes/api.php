@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'namespace' => 'API',
+    'prefix' => 'api',
+    'middleware' => 'auth:api',
+], function () {
+    require __DIR__.'/api_routes/v1/user.php';
+    require __DIR__.'/api_routes/v1/admin.php';
 });
