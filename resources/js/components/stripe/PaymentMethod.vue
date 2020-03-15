@@ -34,6 +34,13 @@ export default {
             const cardButton = this.$refs.cardButton;
 
             cardButton.addEventListener('click', async (e) => {
+                swal.fire({
+                    title: 'Loading',
+                    allowOutsideClick: false,
+                    onBeforeOpen: () => {
+                        swal.showLoading();
+                    }
+                });
                 const { setupIntent, error } = await this.stripe.confirmCardSetup(
                     this.clientSecret, {
                         payment_method: {
@@ -45,6 +52,7 @@ export default {
 
                 if (error) {
                     // Display "error.message" to the user...
+                    swal.close();
                 } else {
                     // The card has been verified successfully...
                     this.storePaymentMethod(setupIntent.payment_method);
