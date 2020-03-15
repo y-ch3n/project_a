@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function isAdmin() 
     {
-        return false; // TODO: check with role
+        return $this->hasRole('admin');
     }
 
     public function companies()

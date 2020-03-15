@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('payment-methods.update') }}">Manage Payment Methods</a>
+                    Successfully logged in.
                 </div>
             </div>
         </div>
