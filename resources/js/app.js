@@ -4,9 +4,17 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import routes from './routes'
+import Vuex from 'vuex'
+import store from './store'
+
+Vue.use(VueRouter)
+Vue.use(Vuex)
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,6 +29,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('stripe-payment-methods', require('./components/stripe/PaymentMethod.vue').default);
+Vue.component('nav-bar', require('./components/NavBar.vue').default);
 
 Vue.component(
     'passport-clients',
@@ -43,6 +52,17 @@ Vue.component(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+let app = new Vue({
     el: '#app',
+
+    router: new VueRouter(routes),
+
+    store: new Vuex.Store(store),
+
+    beforeMount() {
+        let token = localStorage.getItem("accessToken");
+        if (token) {
+            this.$store.commit("authenticate", token);
+        }
+    }
 });

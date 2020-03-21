@@ -11,6 +11,8 @@
 |
 */
 
+Route::view('/{any}', 'spa')->where('any', '.*');
+
 Route::get('/', function () {
     return view('welcome');
 });

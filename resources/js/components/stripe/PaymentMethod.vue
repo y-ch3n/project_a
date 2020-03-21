@@ -23,24 +23,18 @@ export default {
         return {
             stripe: null,
         }
-    }, 
+    },
     methods: {
         createCardElements() {
             const elements = this.stripe.elements();
             const cardElement = elements.create('card');
             cardElement.mount(this.$refs.cardElement);
             const cardHolderName = this.$refs.cardHolderName;
-            
+
             const cardButton = this.$refs.cardButton;
 
             cardButton.addEventListener('click', async (e) => {
-                swal.fire({
-                    title: 'Loading',
-                    allowOutsideClick: false,
-                    onBeforeOpen: () => {
-                        swal.showLoading();
-                    }
-                });
+                swal.loading();
                 const { setupIntent, error } = await this.stripe.confirmCardSetup(
                     this.clientSecret, {
                         payment_method: {
@@ -63,11 +57,11 @@ export default {
             axios.post('update-payment-methods', {
                 payment_method_token: paymentMethodToken
             })
-            .then(response => 
+            .then(response =>
             {
                 window.location.reload();
             })
-            .catch(error => 
+            .catch(error =>
             {
                 console.log(error);
             })
